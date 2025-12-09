@@ -54,7 +54,3 @@ logs
 tmp
 temp
 
-# Docker files
-Dockerfile*
-docker-compose*
-.dockerignore
