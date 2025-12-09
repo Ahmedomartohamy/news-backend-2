@@ -1,0 +1,130 @@
+Initializing deployment
+Building adminnews-cxx-ak3orp
+#0 building with "default" instance using docker driver
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.58kB done
+#1 DONE 0.0s
+#2 [internal] load metadata for docker.io/library/node:24-alpine
+#2 DONE 0.6s
+#3 [internal] load .dockerignore
+#3 transferring context: 485B done
+#3 DONE 0.0s
+#4 [builder 1/8] FROM docker.io/library/node:24-alpine@sha256:682368d8253e0c3364b803956085c456a612d738bd635926d73fa24db3ce53d7
+#4 resolve docker.io/library/node:24-alpine@sha256:682368d8253e0c3364b803956085c456a612d738bd635926d73fa24db3ce53d7 0.0s done
+#4 DONE 0.0s
+#5 [internal] load build context
+#5 transferring context: 580.84kB 0.0s done
+#5 DONE 0.0s
+#6 [builder 2/8] WORKDIR /app
+#6 CACHED
+#7 [builder 4/8] COPY prisma ./prisma/
+#7 CACHED
+#8 [builder 3/8] COPY package*.json ./
+#8 CACHED
+#9 [production 4/9] RUN npm ci --omit=dev
+#9 5.037 npm warn deprecated lodash.isequal@4.5.0: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+#9 5.047 npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
+#9 5.210 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+#9 ...
+#10 [builder 5/8] RUN npm ci
+#10 5.582 npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+#10 9.907 npm warn deprecated lodash.isequal@4.5.0: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+#10 10.18 npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
+#10 11.44 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+#10 ...
+#9 [production 4/9] RUN npm ci --omit=dev
+#9 14.37 npm warn deprecated glob@7.1.6: Glob versions prior to v9 are no longer supported
+#9 ...
+#10 [builder 5/8] RUN npm ci
+#10 30.21 npm warn deprecated glob@7.1.6: Glob versions prior to v9 are no longer supported
+#10 30.51 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+#10 30.70 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+#10 ...
+#9 [production 4/9] RUN npm ci --omit=dev
+#9 36.66
+#9 36.66 added 360 packages, and audited 361 packages in 36s
+#9 36.66
+#9 36.66 38 packages are looking for funding
+#9 36.66   run `npm fund` for details
+#9 36.66
+#9 36.66 found 0 vulnerabilities
+#9 36.66 npm notice
+#9 36.66 npm notice New patch version of npm available! 11.6.2 -> 11.6.4
+#9 36.66 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.4
+#9 36.66 npm notice To update run: npm install -g npm@11.6.4
+#9 36.66 npm notice
+#9 DONE 38.7s
+#10 [builder 5/8] RUN npm ci
+#10 ...
+#11 [production 5/9] COPY prisma ./prisma/
+#11 DONE 0.3s
+#10 [builder 5/8] RUN npm ci
+#10 ...
+#12 [production 6/9] RUN npx prisma generate
+#12 1.469 Prisma schema loaded from prisma/schema.prisma
+#12 1.648
+#12 1.648 ✔ Generated Prisma Client (v7.1.0) to ./node_modules/@prisma/client in 88ms
+#12 1.648
+#12 1.648 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#12 1.648
+#12 1.648 Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
+#12 1.648
+#12 DONE 1.9s
+#10 [builder 5/8] RUN npm ci
+#10 44.91
+#10 44.91 added 818 packages, and audited 819 packages in 45s
+#10 44.91
+#10 44.91 119 packages are looking for funding
+#10 44.92   run `npm fund` for details
+#10 44.92
+#10 44.92 found 0 vulnerabilities
+#10 44.92 npm notice
+#10 44.92 npm notice New patch version of npm available! 11.6.2 -> 11.6.4
+#10 44.92 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.4
+#10 44.92 npm notice To update run: npm install -g npm@11.6.4
+#10 44.92 npm notice
+#10 DONE 45.1s
+#13 [builder 6/8] COPY . .
+#13 DONE 0.3s
+#14 [builder 7/8] RUN npx prisma generate
+#14 1.461 Loaded Prisma config from prisma.config.ts.
+#14 1.461
+#14 1.559 Prisma schema loaded from prisma/schema.prisma
+#14 1.748
+#14 1.748 ✔ Generated Prisma Client (v7.1.0) to ./node_modules/@prisma/client in 101ms
+#14 1.748
+#14 1.748 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#14 1.748
+#14 1.748 Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
+#14 1.748
+#14 DONE 1.8s
+#15 [builder 8/8] RUN npm run build
+#15 0.376
+#15 0.376 > news-backend@1.0.0 build
+#15 0.376 > tsc
+#15 0.376
+#15 2.978 src/app.ts(5,23): error TS7016: Could not find a declaration file for module 'swagger-ui-express'. '/app/node_modules/swagger-ui-express/index.js' implicitly has an 'any' type.
+#15 2.978   Try `npm i --save-dev @types/swagger-ui-express` if it exists or add a new declaration (.d.ts) file containing `declare module 'swagger-ui-express';`
+#15 2.979 src/middleware/requestLogger.ts(66,50): error TS2345: Argument of type '() => void' is not assignable to parameter of type 'BufferEncoding'.
+#15 ERROR: process "/bin/sh -c npm run build" did not complete successfully: exit code: 2
+------
+> [builder 8/8] RUN npm run build:
+0.376
+0.376 > news-backend@1.0.0 build
+0.376 > tsc
+0.376
+2.978 src/app.ts(5,23): error TS7016: Could not find a declaration file for module 'swagger-ui-express'. '/app/node_modules/swagger-ui-express/index.js' implicitly has an 'any' type.
+2.978   Try `npm i --save-dev @types/swagger-ui-express` if it exists or add a new declaration (.d.ts) file containing `declare module 'swagger-ui-express';`
+2.979 src/middleware/requestLogger.ts(66,50): error TS2345: Argument of type '() => void' is not assignable to parameter of type 'BufferEncoding'.
+------
+Dockerfile:28
+--------------------
+|
+|     # Build TypeScript
+| >>> RUN npm run build
+|
+|     # Stage 2: Production
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c npm run build" did not complete successfully: exit code: 2
+❌ Docker build failed
+Error occurred ❌, check the logs for details.

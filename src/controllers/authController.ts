@@ -31,7 +31,7 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
         success: true,
         data: {
             user,
-            token,
+            accessToken: token,
             refreshToken,
         },
         message: 'User registered successfully',
@@ -84,7 +84,7 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
         success: true,
         data: {
             user: userWithoutPassword,
-            token,
+            accessToken: token,
             refreshToken,
         },
         message: 'Login successful',
