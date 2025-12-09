@@ -1,0 +1,37 @@
+version: '3.8'
+
+# Development overrides for docker-compose.yml
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    
+    environment:
+      NODE_ENV: development
+    
+    # Enable hot reload by mounting source code
+    volumes:
+      - ./src:/app/src
+      - ./prisma:/app/prisma
+      - ./tests:/app/tests
+      - /app/node_modules
+      - ./logs:/app/logs
+    
+    # Override command for development
+    command: sh -c "npx prisma migrate deploy && npm run dev"
+    
+    # Expose additional ports for debugging
+    ports:
+      - "5000:5000"
+      - "9229:9229"  # Node.js debugger
+  
+  postgres:
+    # Enable query logging in development
+    command: postgres -c log_statement=all
+    
+    ports:
+      - "5432:5432"
