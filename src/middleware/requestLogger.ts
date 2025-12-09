@@ -63,7 +63,7 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction): 
 
         // Call original end
         if (typeof encoding === 'function') {
-            return originalEnd.call(this, chunk, encoding);
+            return originalEnd.call(this, chunk, encoding as any);
         }
         return originalEnd.call(this, chunk, encoding as BufferEncoding, callback);
     };
