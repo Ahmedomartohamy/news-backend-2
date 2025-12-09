@@ -1,0 +1,404 @@
+
+> news-backend@1.0.0 test:coverage
+> jest --coverage --runInBand
+
+(node:9137) Warning: Failed to load the ES module: /home/ahmedelrawy/Desktop/Wejod/news-backend/jest.config.ts. Make sure to set "type": "module" in the nearest package.json file or use the .mjs extension.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ts-jest[ts-jest-transformer] (WARN) Define `ts-jest` config under `globals` is deprecated. Please do
+transform: {
+    <transform_regex>: ['ts-jest', { /* ts-jest config goes here in Jest */ }],
+},
+See more at https://kulshekhar.github.io/ts-jest/docs/getting-started/presets#advanced
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "GET /api/articles HTTP/1.1" 200 641 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "GET /api/articles?page=2&limit=20 HTTP/1.1" 200 86 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "GET /api/articles?status=DRAFT HTTP/1.1" 200 86 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "GET /api/articles/test-article HTTP/1.1" 404 45 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "GET /api/articles/non-existent HTTP/1.1" 404 45 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "POST /api/articles HTTP/1.1" 201 620 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "POST /api/articles HTTP/1.1" 401 60 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "POST /api/articles HTTP/1.1" 400 198 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "PUT /api/articles/1 HTTP/1.1" 200 621 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "PUT /api/articles/1 HTTP/1.1" 403 63 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "PUT /api/articles/1 HTTP/1.1" 200 621 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "DELETE /api/articles/1 HTTP/1.1" 200 57 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "DELETE /api/articles/1 HTTP/1.1" 403 65 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "DELETE /api/articles/999 HTTP/1.1" 404 45 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "PATCH /api/articles/1/publish HTTP/1.1" 200 648 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "PATCH /api/articles/1/publish HTTP/1.1" 401 60 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:18 +0000] "PATCH /api/articles/1/archive HTTP/1.1" 200 624 "-" "-"
+FAIL tests/integration/articles.test.ts
+  Articles Integration Tests
+    GET /api/articles
+      ✕ should get all published articles for unauthenticated users (30 ms)
+      ✓ should support pagination (10 ms)
+      ✓ should support filtering by status (9 ms)
+    GET /api/articles/:slug
+      ✕ should get article by slug (10 ms)
+      ✓ should return 404 for non-existent article (22 ms)
+    POST /api/articles
+      ✓ should create article with valid data (17 ms)
+      ✓ should reject article creation without authentication (9 ms)
+      ✓ should reject article with missing required fields (9 ms)
+    PUT /api/articles/:id
+      ✓ should update own article (10 ms)
+      ✓ should reject updating another user's article (10 ms)
+      ✓ should allow admin to update any article (8 ms)
+    DELETE /api/articles/:id
+      ✓ should delete own article (20 ms)
+      ✓ should reject deleting another user's article (7 ms)
+      ✓ should return 404 for non-existent article (7 ms)
+    PATCH /api/articles/:id/publish
+      ✓ should publish article (8 ms)
+      ✓ should require authentication to publish (8 ms)
+    PATCH /api/articles/:id/archive
+      ✓ should archive article (7 ms)
+
+  ● Articles Integration Tests › GET /api/articles › should get all published articles for unauthenticated users
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      101 |             expect(response.status).toBe(200);
+      102 |             expect(response.body.success).toBe(true);
+    > 103 |             expect(response.body.data.articles).toBeDefined();
+          |                                                 ^
+      104 |             expect(response.body.data.pagination).toBeDefined();
+      105 |         });
+      106 |
+
+      at Object.<anonymous> (tests/integration/articles.test.ts:103:49)
+
+  ● Articles Integration Tests › GET /api/articles/:slug › should get article by slug
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 404
+
+      141 |                 .get('/api/articles/test-article');
+      142 |
+    > 143 |             expect(response.status).toBe(200);
+          |                                     ^
+      144 |             expect(response.body.success).toBe(true);
+      145 |             expect(response.body.data.slug).toBe('test-article');
+      146 |         });
+
+      at Object.<anonymous> (tests/integration/articles.test.ts:143:37)
+
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/register HTTP/1.1" 201 733 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/register HTTP/1.1" 400 88 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/register HTTP/1.1" 400 106 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/register HTTP/1.1" 400 109 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/login HTTP/1.1" 200 683 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/login HTTP/1.1" 401 53 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/login HTTP/1.1" 401 53 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/login HTTP/1.1" 429 85 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "GET /api/auth/me HTTP/1.1" 200 216 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "GET /api/auth/me HTTP/1.1" 401 60 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "GET /api/auth/me HTTP/1.1" 401 73 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "PUT /api/auth/me HTTP/1.1" 200 269 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "PUT /api/auth/me HTTP/1.1" 400 94 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/auth/logout HTTP/1.1" 200 52 "-" "-"
+FAIL tests/integration/auth.test.ts
+  Auth Integration Tests
+    POST /api/auth/register
+      ✓ should register a new user successfully (24 ms)
+      ✓ should reject registration with invalid email (11 ms)
+      ✓ should reject registration with short password (11 ms)
+      ✓ should reject registration without name (28 ms)
+    POST /api/auth/login
+      ✓ should login successfully with valid credentials (11 ms)
+      ✓ should reject login with invalid email (8 ms)
+      ✓ should reject login with wrong password (7 ms)
+      ✕ should reject login for inactive user (8 ms)
+    GET /api/auth/me
+      ✓ should get current user with valid token (7 ms)
+      ✓ should reject request without token (7 ms)
+      ✓ should reject request with invalid token (7 ms)
+    PUT /api/auth/me
+      ✓ should update user profile (8 ms)
+      ✓ should reject invalid profile data (8 ms)
+    POST /api/auth/logout
+      ✓ should logout successfully (6 ms)
+
+  ● Auth Integration Tests › POST /api/auth/login › should reject login for inactive user
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 403
+    Received: 429
+
+      193 |                 });
+      194 |
+    > 195 |             expect(response.status).toBe(403);
+          |                                     ^
+      196 |         });
+      197 |     });
+      198 |
+
+      at Object.<anonymous> (tests/integration/auth.test.ts:195:37)
+
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "GET /api/categories HTTP/1.1" 200 235 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "GET /api/categories/tree HTTP/1.1" 200 235 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "GET /api/categories/technology HTTP/1.1" 200 233 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "GET /api/categories/non-existent HTTP/1.1" 404 46 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/categories HTTP/1.1" 201 275 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/categories HTTP/1.1" 403 63 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "POST /api/categories HTTP/1.1" 401 60 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "PUT /api/categories/1 HTTP/1.1" 200 277 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "PUT /api/categories/1 HTTP/1.1" 403 63 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "DELETE /api/categories/1 HTTP/1.1" 200 58 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "DELETE /api/categories/1 HTTP/1.1" 403 63 "-" "-"
+::ffff:127.0.0.1 - - [02/Dec/2025:13:38:19 +0000] "DELETE /api/categories/999 HTTP/1.1" 404 46 "-" "-"
+PASS tests/integration/categories.test.ts
+  Categories Integration Tests
+    GET /api/categories
+      ✓ should get all categories (19 ms)
+    GET /api/categories/tree
+      ✓ should get category tree (7 ms)
+    GET /api/categories/:slug
+      ✓ should get category by slug (6 ms)
+      ✓ should return 404 for non-existent category (6 ms)
+    POST /api/categories
+      ✓ should create category as admin (10 ms)
+      ✓ should reject category creation by non-admin (8 ms)
+      ✓ should reject category creation without authentication (8 ms)
+    PUT /api/categories/:id
+      ✓ should update category as admin (8 ms)
+      ✓ should reject update by non-admin (15 ms)
+    DELETE /api/categories/:id
+      ✓ should delete category as admin (8 ms)
+      ✓ should reject delete by non-admin (7 ms)
+      ✓ should return 404 for non-existent category (6 ms)
+
+PASS tests/unit/controllers/authController.test.ts
+  Auth Controller
+    register
+      ✓ should register a new user successfully (2 ms)
+      ✓ should handle registration errors (1 ms)
+    login
+      ✓ should login successfully with valid credentials (1 ms)
+      ✓ should reject login with invalid credentials (1 ms)
+      ✓ should reject login for inactive user
+    getCurrentUser
+      ✓ should get current user
+      ✓ should handle unauthenticated request
+    updateProfile
+      ✓ should update user profile
+    changePassword
+      ✓ should change password successfully (1 ms)
+    logout
+      ✓ should logout successfully
+
+PASS tests/unit/middleware/validate.test.ts
+  Validate Middleware
+    body validation
+      ✓ should pass validation with valid data (2 ms)
+      ✓ should reject invalid data (2 ms)
+      ✓ should reject missing required fields (1 ms)
+      ✓ should transform data if schema has transformations (1 ms)
+    params validation
+      ✓ should validate params (1 ms)
+      ✓ should reject invalid params (1 ms)
+    query validation
+      ✓ should validate query parameters (1 ms)
+      ✓ should handle optional query parameters (1 ms)
+    error handling
+      ✓ should format multiple validation errors (2 ms)
+
+PASS tests/unit/utils/slugify.test.ts
+  Slugify Utils
+    generateSlug
+      ✓ should convert text to lowercase slug (1 ms)
+      ✓ should remove special characters (1 ms)
+      ✓ should handle multiple spaces
+      ✓ should trim whitespace
+      ✓ should handle unicode characters (1 ms)
+      ✓ should handle empty string
+    generateUniqueSlug
+      ✓ should return original slug if not exists
+      ✓ should append counter if slug exists
+      ✓ should increment counter until unique slug found (1 ms)
+      ✓ should handle complex titles (1 ms)
+
+PASS tests/unit/schemas/auth.schema.test.ts
+  Auth Schemas
+    registerSchema
+      ✓ should validate correct registration data (1 ms)
+      ✓ should reject invalid email
+      ✓ should reject short password
+      ✓ should reject missing name (1 ms)
+      ✓ should reject empty name (1 ms)
+    loginSchema
+      ✓ should validate correct login data
+      ✓ should reject invalid email (1 ms)
+      ✓ should reject missing password (1 ms)
+      ✓ should reject empty password
+    updateProfileSchema
+      ✓ should validate correct profile update (1 ms)
+      ✓ should allow partial updates
+      ✓ should reject empty name (1 ms)
+      ✓ should reject bio longer than 500 characters (1 ms)
+      ✓ should reject invalid avatar URL
+      ✓ should allow empty object
+    changePasswordSchema
+      ✓ should validate correct password change data (1 ms)
+      ✓ should reject missing old password (1 ms)
+      ✓ should reject short new password
+      ✓ should reject empty old password
+
+PASS tests/unit/schemas/article.schema.test.ts
+  Article Schemas
+    createArticleSchema
+      ✓ should validate correct article data (1 ms)
+      ✓ should reject missing title (1 ms)
+      ✓ should reject empty title (1 ms)
+      ✓ should reject missing content
+      ✓ should reject excerpt longer than 500 characters
+      ✓ should reject invalid featured image URL (1 ms)
+      ✓ should reject invalid status (1 ms)
+      ✓ should allow optional fields to be omitted (1 ms)
+    updateArticleSchema
+      ✓ should validate partial updates
+      ✓ should allow all fields to be updated
+      ✓ should reject empty title (1 ms)
+      ✓ should allow empty object
+    articleParamsSchema
+      ✓ should validate numeric ID string
+      ✓ should reject non-numeric ID (1 ms)
+      ✓ should reject negative numbers (1 ms)
+    articleSlugParamsSchema
+      ✓ should validate slug
+      ✓ should reject empty slug (1 ms)
+
+PASS tests/unit/middleware/auth.test.ts
+  Auth Middleware
+    authenticate
+      ✓ should authenticate user with valid token (2 ms)
+      ✓ should reject request without authorization header (1 ms)
+      ✓ should reject request with invalid token format (1 ms)
+      ✓ should reject expired or invalid token (1 ms)
+      ✓ should reject if user not found (1 ms)
+      ✓ should reject inactive user (1 ms)
+    optionalAuthenticate
+      ✓ should authenticate user with valid token (1 ms)
+      ✓ should continue without authentication if no token (1 ms)
+      ✓ should silently fail on invalid token (1 ms)
+      ✓ should not set user if user is inactive
+
+PASS tests/unit/utils/pagination.test.ts
+  Pagination Utils
+    getPagination
+      ✓ should return correct pagination for default values (2 ms)
+      ✓ should calculate skip correctly for different pages
+      ✓ should handle custom limit
+      ✓ should enforce minimum page of 1 (1 ms)
+      ✓ should enforce minimum page for negative values (1 ms)
+      ✓ should enforce maximum limit of 100
+      ✓ should enforce minimum limit of 1 (1 ms)
+      ✓ should handle large page numbers (1 ms)
+    getPaginationMeta
+      ✓ should return correct metadata
+      ✓ should calculate total pages correctly (1 ms)
+      ✓ should handle exact division
+      ✓ should handle zero total
+      ✓ should handle single item (1 ms)
+
+PASS tests/unit/utils/ApiError.test.ts
+  ApiError
+    ✓ should create an error with status code and message (2 ms)
+    ✓ should create an error with default message (1 ms)
+    ✓ should have correct stack trace (1 ms)
+    ✓ should work with different status codes (1 ms)
+
+PASS tests/unit/utils/asyncHandler.test.ts
+  asyncHandler
+    ✓ should call the async function and resolve successfully (1 ms)
+    ✓ should catch errors and pass to next (1 ms)
+    ✓ should handle synchronous errors (1 ms)
+    ✓ should work with async/await functions (1 ms)
+
+FAIL tests/unit/services/articleService.test.ts
+  ● Test suite failed to run
+
+    ReferenceError: Cannot access 'prisma_mock_1' before initialization
+
+       7 | jest.mock('../../../src/config/prisma', () => ({
+       8 |     __esModule: true,
+    >  9 |     default: createMockPrismaClient(),
+         |              ^
+      10 | }));
+      11 |
+      12 | const mockPrisma = prisma as any;
+
+      at tests/unit/services/articleService.test.ts:9:14
+      at Object.<anonymous> (src/services/articleService.ts:2:1)
+      at Object.<anonymous> (tests/unit/services/articleService.test.ts:1:1)
+
+------------------------|---------|----------|---------|---------|-------------------------------------------------------------------------
+File                    | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                       
+------------------------|---------|----------|---------|---------|-------------------------------------------------------------------------
+All files               |   57.14 |    31.76 |   38.99 |   56.37 |                                                                         
+ src                    |    87.5 |    66.66 |       0 |    87.5 |                                                                         
+  app.ts                |    87.5 |    66.66 |       0 |    87.5 | 30,37,45                                                                
+ src/config             |   97.05 |    65.21 |      75 |   96.66 |                                                                         
+  jwt.ts                |   94.11 |       50 |      75 |    92.3 | 29                                                                      
+  prisma.ts             |     100 |       50 |     100 |     100 | 12                                                                      
+  r2.ts                 |     100 |    76.92 |     100 |     100 | 7                                                                       
+ src/controllers        |   44.44 |    21.46 |   34.54 |   44.44 |                                                                         
+  articleController.ts  |   65.11 |    48.07 |   77.77 |   65.11 | 20,23,26,29,61,74,86,106,110,131,135,155,159,179,183,201-210,221-243    
+  authController.ts     |   95.34 |    83.33 |     100 |   95.34 | 117,141                                                                 
+  categoryController.ts |      75 |       25 |   85.71 |      75 | 41,57-67,95,120                                                         
+  commentController.ts  |    19.4 |        0 |       0 |    19.4 | 17-33,45-53,64-72,83-88,100-113,125-137,148-156,168-176,188-196,208-210 
+  mediaController.ts    |   18.64 |        0 |       0 |   18.64 | 12-22,34-44,56-67,79-91,102-113,125-142,154-166,177-183                 
+  tagController.ts      |   24.39 |        0 |       0 |   24.39 | 12-14,25-29,40-48,59-69,80-84,96-105,117-125                            
+  userController.ts     |   21.56 |        0 |       0 |   21.56 | 13-20,32-40,51-60,72-85,97-106,118-126,137-145,156-169                  
+ src/middleware         |   64.28 |    49.25 |   64.28 |    61.8 |                                                                         
+  auth.ts               |   97.05 |      100 |     100 |   96.87 | 104                                                                     
+  errorHandler.ts       |   30.18 |    14.81 |      50 |   27.45 | 28-80,85,95,113-114                                                     
+  rateLimiter.ts        |     100 |      100 |     100 |     100 |                                                                         
+  roleCheck.ts          |   57.14 |       30 |      50 |   53.84 | 14,51-67                                                                
+  upload.ts             |   76.47 |    57.14 |   33.33 |   73.33 | 18-21,61                                                                
+  validate.ts           |   92.85 |    66.66 |     100 |   91.66 | 43                                                                      
+ src/routes             |   99.24 |      100 |       0 |   99.24 |                                                                         
+  article.routes.ts     |     100 |      100 |     100 |     100 |                                                                         
+  auth.routes.ts        |     100 |      100 |     100 |     100 |                                                                         
+  category.routes.ts    |     100 |      100 |     100 |     100 |                                                                         
+  comment.routes.ts     |     100 |      100 |     100 |     100 |                                                                         
+  index.ts              |   94.73 |      100 |       0 |   94.73 | 14                                                                      
+  media.routes.ts       |     100 |      100 |     100 |     100 |                                                                         
+  tag.routes.ts         |     100 |      100 |     100 |     100 |                                                                         
+  user.routes.ts        |     100 |      100 |     100 |     100 |                                                                         
+ src/schemas            |   75.55 |        0 |       0 |   75.55 |                                                                         
+  article.schema.ts     |   58.33 |        0 |       0 |   58.33 | 53-59                                                                   
+  auth.schema.ts        |     100 |      100 |     100 |     100 |                                                                         
+  category.schema.ts    |     100 |      100 |     100 |     100 |                                                                         
+  comment.schema.ts     |     100 |      100 |     100 |     100 |                                                                         
+  common.schema.ts      |       0 |        0 |       0 |       0 | 1-22                                                                    
+  media.schema.ts       |     100 |      100 |     100 |     100 |                                                                         
+  tag.schema.ts         |     100 |      100 |     100 |     100 |                                                                         
+  user.schema.ts        |     100 |      100 |     100 |     100 |                                                                         
+ src/services           |   39.15 |    30.68 |   34.32 |    39.2 |                                                                         
+  articleService.ts     |   72.36 |       60 |   64.28 |   73.33 | 25,43,101,114-139,159,163,167,175,185,232,266,358-399                   
+  categoryService.ts    |   69.09 |       50 |   81.81 |   68.51 | 19-23,96-113,163,168,224,229,246-289                                    
+  commentService.ts     |   10.52 |        0 |       0 |   10.52 | 13-378                                                                  
+  mediaService.ts       |   12.24 |        0 |       0 |    12.5 | 12-242                                                                  
+  tagService.ts         |    9.43 |        0 |       0 |    9.43 | 12-276                                                                  
+  userService.ts        |   47.61 |       40 |   45.45 |   47.61 | 19,86,96-124,164-245                                                    
+ src/utils              |    85.1 |    83.33 |      80 |   82.05 |                                                                         
+  ApiError.ts           |     100 |      100 |     100 |     100 |                                                                         
+  asyncHandler.ts       |     100 |      100 |     100 |     100 |                                                                         
+  pagination.ts         |     100 |      100 |     100 |     100 |                                                                         
+  slugify.ts            |     100 |      100 |     100 |     100 |                                                                         
+  uploadToR2.ts         |   53.33 |        0 |       0 |   46.15 | 17-29,38-43                                                             
+------------------------|---------|----------|---------|---------|-------------------------------------------------------------------------
+Jest: "global" coverage threshold for statements (70%) not met: 57.14%
+Jest: "global" coverage threshold for branches (70%) not met: 31.76%
+Jest: "global" coverage threshold for lines (70%) not met: 56.37%
+Jest: "global" coverage threshold for functions (70%) not met: 38.99%
+Test Suites: 3 failed, 10 passed, 13 total
+Tests:       3 failed, 136 passed, 139 total
+Snapshots:   0 total
+Time:        1.874 s, estimated 2 s
+Ran all test suites.
