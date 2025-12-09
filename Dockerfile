@@ -1,9 +1,15 @@
 # Multi-stage build for smaller image size
 
 # Stage 1: Build
-FROM node:18-alpine AS builder
+FROM node:24-alpine AS builder
+
+# Build arguments
+ARG DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
 
 WORKDIR /app
+
+# Set environment for build
+ENV DATABASE_URL=$DATABASE_URL
 
 # Copy package files
 COPY package*.json ./
@@ -22,15 +28,23 @@ RUN npx prisma generate
 RUN npm run build
 
 # Stage 2: Production
-FROM node:18-alpine AS production
+FROM node:24-alpine AS production
+
+# Build arguments
+ARG DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy"
 
 WORKDIR /app
+
+# Set environment
+ENV NODE_ENV=production
+ENV DATABASE_URL=$DATABASE_URL
+ENV PATH=/app/node_modules/.bin:$PATH
 
 # Copy package files
 COPY package*.json ./
 
 # Install production dependencies only
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 # Copy Prisma schema and generate client
 COPY prisma ./prisma/

@@ -1,7 +1,10 @@
 {
   "build": {
     "dockerfile": "Dockerfile",
-    "context": "."
+    "context": ".",
+    "args": {
+      "DATABASE_URL": "postgresql://dummy:dummy@localhost:5432/dummy"
+    }
   },
   "deploy": {
     "port": 5000
